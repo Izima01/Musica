@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { HiHome } from 'react-icons/hi';
 import { SiApplemusic } from 'react-icons/si';
 import { HiRadio } from 'react-icons/hi2';
@@ -16,21 +16,35 @@ const Navbar = () => {
 
     const { navOpen } = useContext(AppContext);
 
+    useEffect(()=> {
+        // console.log(document.querySelector(".Home"));
+        document.querySelector(".Home").click();
+    });    
+
     const renderLinks = LinkInfo.map(({ name, link, icon }, index) => {
         return (
-            <Link key ={index} className='nav-item flex gap-6 items-center w-full group' to={link}>
+            <Link key ={index} className={`nav-item flex gap-6 items-center w-full group ${name}`} to={link}>
                 {icon}
-                <span className='text-lg text-[#EFEEE040] group-focus:text-white ease-in-out duration-300'>{name}</span>
+                <span
+                    className='text-lg text-[#EFEEE040] group-focus:text-white 
+                        ease-in-out duration-300 md:hidden'
+                >
+                    {name}
+                </span>
             </Link>
         )
     })
 
     return (
-        <nav
-            className={`flex flex-col gap-12 fixed left-0 h-screen top-17 px-5 py-20 ease-in-out duration-700 ${navOpen ? "-translate-x-0" : "-translate-x-full"} bg-[#1D2123]`}
-            style={{zIndex:10}}
-            >
-                {renderLinks}
+        <nav style={{zIndex: 3}}
+            className=
+            {`flex flex-col gap-12 bg-[#1D2123] 
+            fixed md:static left-0 top-17 
+            px-5 h-screen md:pl-5 md:pr-2 py-16 
+            ease-in-out duration-700 md:translate-x-0 
+            ${navOpen ? "-translate-x-0" : "-translate-x-full"}`}
+        >
+            {renderLinks}
         </nav>
     )
 }

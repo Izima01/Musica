@@ -1,0 +1,15 @@
+@media(min-width: 768px) {
+    .homePage .top {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        gap: 28px;
+    }
+}
+
+@media(min-width: 1024px) {
+    .homePage .top {
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 28px;
+    }
+}

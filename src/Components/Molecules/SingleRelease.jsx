@@ -3,7 +3,7 @@ import release1 from '../../assets/release1.png';
 
 const SingleRelease = () => {
     return (
-        <div className='border-red-600 border-2 relative bg-[#1A1E1F]'>
+        <div className='relative bg-[#1A1E1F]'>
             <div className='h-[9.5rem] w-[9.5rem] rounded-3xl'>
                 <img src={release1} className='w-full h-full rounded-3xl' alt="" />
             </div>

@@ -5,9 +5,14 @@ const Ham = () => {
     const { navOpen, toggleHam } = useContext(AppContext);
 
     return (
-        <button className="ham flex flex-col gap-[16px] p-1" onClick={toggleHam}>
-            <div className={`${navOpen ? "-rotate-45 " : " "}origin-right topham h-1 bg-white border-0  w-7 rounded-full ease-in-out duration-500`}></div>
-            <div className={`${navOpen ? "rotate-45 " : " "}origin-right bottomham h-1 bg-white border-0  w-7 rounded-full ease-in-out duration-500`}></div>
+        <button className="ham flex flex-col gap-[16px] p-1 md:hidden" onClick={toggleHam}>
+            <div className=
+                {`${navOpen ? "-rotate-45" : " "} ease-in-out duration-500 
+                origin-right topham h-1 bg-white border-0 w-7 rounded-full`}
+            ></div>
+            <div className={`${navOpen ? "rotate-45" : ""} origin-right bottomham
+                h-1 bg-white border-0  w-7 rounded-full ease-in-out duration-500`}
+            ></div>
         </button>
     )
 }

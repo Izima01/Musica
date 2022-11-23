@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import james from '../assets/james.png';
 import next from '../assets/next.svg';
+import prev from '../assets/previous.svg';
 import '../App.css';
 import { FaPlayCircle } from 'react-icons/fa'
 import { FaPauseCircle } from 'react-icons/fa'
@@ -11,10 +12,10 @@ const MusicPlayer = () => {
     const [isPlaying, setisPlaying] = useState(false);
     const musicRef = useRef();
     const progressRef = useRef();
+    // const whine = 'https://www.shazam.com/track/639339886/you-dey-whine-me';
 
     const playPause = () => {
         setisPlaying(!isPlaying);
-        // console.log(musicRef);
         isPlaying ? musicRef.current.pause() : musicRef.current.play();
     }
 
@@ -22,13 +23,12 @@ const MusicPlayer = () => {
         alert("Next");
     }
 
-    // progressScan.addEventListener('click', () => {
-    //     alert("progressing");
-    // });
+    const handlePrev = () => {
+        alert("Prev");
+    }
 
     const handleTimeUpdate = () => {
         const percentPlayed = (musicRef.current.currentTime/ musicRef.current.duration) * 100;
-        // console.log(percentPlayed);
         progressRef.current.style.width = `${percentPlayed}%`;
     }
 
@@ -50,16 +50,27 @@ const MusicPlayer = () => {
                 <p className='text-[0.75rem] text-[#ffffff70] font-bold'>James</p>
             </div>
             <div className='ml-auto flex items-center gap-6'>
+                <button onClick={handlePrev}>
+                    <img src={prev} alt="previous button" />
+                </button>
                 <button onClick={playPause}>
                     {isPlaying ? <FaPauseCircle fill='#FACD66' size='2rem' /> : <FaPlayCircle fill='#FACD66' size='2rem' />}
                 </button>
                 <button onClick={handleNext}>
-                    <img src={next} alt="" />
+                    <img src={next} alt="next button" />
                 </button>
             </div>
             <audio src={peru} ref={musicRef} onTimeUpdate={handleTimeUpdate}></audio>
-            <div className='progress-container absolute -top-[3px] left-0 right-0 h-[1.5px] bg-[#ffffff57] w-full' onClick={handleProgress}>
-                <div className='progress absolute top-0 rounded left-0 right-0 bg-red-500 h-[3px] w-0 transition-all duration-200 ease-in-out ease-linear' ref={progressRef}></div>
+            <div
+                onClick={handleProgress}
+                className='progress-container absolute -top-[3px] left-0 right-0 
+                h-[1.5px] bg-[#ffffff57] w-full'
+            >
+                <div 
+                    ref={progressRef}
+                    className='progress absolute top-0 rounded left-0 right-0 
+                    bg-red-500 h-[3px] w-0 transition-all duration-200 ease-linear'
+                ></div>
             </div>
         </footer>
     )
