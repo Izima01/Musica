@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { HiHome } from 'react-icons/hi';
+import { HiOutlineRadio } from 'react-icons/hi2';
 import { SiApplemusic } from 'react-icons/si';
-import { HiRadio } from 'react-icons/hi2';
 import { FaVideo } from 'react-icons/fa';
 import AppContext from '../Context/GeneralContext';
 import { Link } from 'react-router-dom';
@@ -10,16 +10,11 @@ const Navbar = () => {
     const LinkInfo = [
         { name: 'Home', link: '/', icon: <HiHome fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
         { name: 'Collections', link: '/collections', icon: <SiApplemusic fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
-        { name: 'Radio', link: '/radio', icon: <HiRadio fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' />},
+        { name: 'Radio', link: '/radio', icon: <HiOutlineRadio fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' />},
         { name: 'Videos', link: '/videos', icon: <FaVideo fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> }
     ]
 
     const { navOpen } = useContext(AppContext);
-
-    useEffect(()=> {
-        // console.log(document.querySelector(".Home"));
-        document.querySelector(".Home").click();
-    });    
 
     const renderLinks = LinkInfo.map(({ name, link, icon }, index) => {
         return (

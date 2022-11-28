@@ -5,6 +5,7 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
     const [navOpen, setNavOpen] = useState(false);
     const [liked, setLiked] = useState([]);
+    const [playing, setPlaying] = useState({});
     const likedAlbumNames = liked.map(like => like.albumName);
 
     const toggleHam = () => {
@@ -19,9 +20,8 @@ export function AppProvider({ children }) {
         }
     };
 
-
     return (
-        <AppContext.Provider value={{ navOpen, toggleHam, likedAlbumNames, handleLiked }}>
+        <AppContext.Provider value={{ navOpen, toggleHam, likedAlbumNames, handleLiked, playing, setPlaying }}>
             {children}
         </AppContext.Provider>
     )

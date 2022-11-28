@@ -6,6 +6,7 @@ import Radio from './Pages/Radio'
 import Videos from './Pages/Videos'
 import { AppProvider } from './Context/GeneralContext';
 import { Routes, Route } from 'react-router-dom'
+import ChartDetails from './Pages/ChartDetails';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path='/collections' element={<Collections />} />
             <Route path='/radio' element={<Radio />} />
             <Route path='/videos' element={<Videos />} />
+            <Route path='album-details' element={<ChartDetails />} />
           </Route>
         </Routes>
         {/* <PageLayout /> */}
