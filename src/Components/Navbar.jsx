@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { HiHome } from 'react-icons/hi';
-import { HiOutlineRadio } from 'react-icons/hi2';
+import { BiRadio } from 'react-icons/bi';
 import { SiApplemusic } from 'react-icons/si';
 import { FaVideo } from 'react-icons/fa';
 import AppContext from '../Context/GeneralContext';
@@ -10,7 +10,7 @@ const Navbar = () => {
     const LinkInfo = [
         { name: 'Home', link: '/', icon: <HiHome fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
         { name: 'Collections', link: '/collections', icon: <SiApplemusic fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
-        { name: 'Radio', link: '/radio', icon: <HiOutlineRadio fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' />},
+        { name: 'Radio', link: '/radio', icon: <BiRadio fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' />},
         { name: 'Videos', link: '/videos', icon: <FaVideo fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> }
     ]
 
@@ -21,8 +21,7 @@ const Navbar = () => {
             <Link key ={index} className={`nav-item flex gap-6 items-center w-full group ${name}`} to={link}>
                 {icon}
                 <span
-                    className='text-lg text-[#EFEEE040] group-focus:text-white 
-                        ease-in-out duration-300 md:hidden'
+                    className='text-lg text-[#EFEEE040] group-focus:text-white ease-in-out duration-300 sm:hidden'
                 >
                     {name}
                 </span>

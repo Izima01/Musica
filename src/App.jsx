@@ -11,7 +11,7 @@ import ChartDetails from './Pages/ChartDetails';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App fancyscroll">
       <AppProvider>
         <Routes>
           <Route path='/' element={<PageLayout />}>

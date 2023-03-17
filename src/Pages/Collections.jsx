@@ -4,6 +4,7 @@ import MyLikes from '../Components/MyLikes'
 
 const Collections = () => {
     const [likeActive, setLikeActive] = useState(false);
+
     return (
         <section className='w-full'>
             <div className='flex gap-4 mb-9'>

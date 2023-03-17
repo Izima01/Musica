@@ -27,24 +27,12 @@
     }
 }
 
-.progress::after {
-    content: "";
-    position: absolute;
+.fancyscroll::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-    border-radius: 50%;
-    background-color: #FACD66;
-    top: -3px;
-    right: -3px;
 }
 
-.progress::before {
-    content: "";
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border: 1.5px solid white;
-    border-radius: 50%;
-    top: -7px;
-    right: -7px;
+.fancyscroll::-webkit-scrollbar-thumb {
+    background-color: #609EAF;
+    border-radius: 16px;
 }
