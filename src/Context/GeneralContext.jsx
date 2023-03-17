@@ -8,12 +8,13 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
     const [navOpen, setNavOpen] = useState(false);
     const [liked, setLiked] = useState([]);
+    const [isPlaying, setisPlaying] = useState(false);
     const [nowPlaying, setNowPlaying] = useState([defaultSong]);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const [currentSong, setCurrentSong] = useState(nowPlaying[currentSongIndex]);
 
+
     const likedAlbumNames = liked.map(like => like.albumName);
-    const [isPlaying, setisPlaying] = useState(false);
 
     const toggleHam = () => {
         setNavOpen((navOpen) => !navOpen);
@@ -28,7 +29,8 @@ export function AppProvider({ children }) {
     };
 
     const playPause = (value) => {
-        value ? setisPlaying(true)
+        value
+        ? setisPlaying(true)
         : setisPlaying(false);
     };
 

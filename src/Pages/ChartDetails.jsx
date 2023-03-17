@@ -7,11 +7,10 @@ import { FaPlayCircle, FaHeart } from 'react-icons/fa'
 import AppContext from '../Context/GeneralContext';
 
 const SingleTune = ({ cover, title, isSingle, time, id, artist }) => {
-    // const { setNowPlaying, nowPlaying } = useContext(AppContext);
     const songInfo = { cover, title, time, src: id, artist };
 
     return (
-        <button className='w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2.5 items-center' id={id} onClick={handleClick}>
+        <button className='w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2.5 items-center' id={id}>
             <img src={cover || tuneImg} width='40px' className='rounded-md' alt="" />
             <div>
                 <p className='text-white text-sm pb-1'>{title + " ~ " + artist || "Let me love you ~ Krisx"}</p>

@@ -14,26 +14,41 @@ const MusicPlayer = () => {
     const [repeat, setRepeat] = useState(false);
     const [shuffle, setShuffle] = useState(false);
     const musicRef = useRef();
-    const { currentSong, nowPlaying, isPlaying, playPause, setCurrentSong, currentSongIndex, setCurrentSongIndex } = useContext(AppContext);
+    const { currentSong, nowPlaying, isPlaying, setisPlaying, playPause, setCurrentSong, currentSongIndex, setCurrentSongIndex } = useContext(AppContext);
+
+    if (musicRef.current) {
+        if (isPlaying) {
+            musicRef.current.play();
+        } else {
+            musicRef.current.pause();
+        }
+    }
 
     const handleNext = () => {
         playPause(false);
         if (!shuffle) {
             currentSongIndex === nowPlaying.length-1 ? setCurrentSongIndex(0) : setCurrentSongIndex(currentSongIndex + 1);
+            setCurrentSong(nowPlaying[currentSongIndex]);
+            playPause(true);
+        
         } else {
             setCurrentSongIndex(Math.floor(Math.random() * nowPlaying.length));
+            setCurrentSong(nowPlaying[currentSongIndex]);
+            playPause(true);
         }
-        setCurrentSong(nowPlaying[currentSongIndex]);
     };
 
     const handlePrev = () => {
         playPause(false);
         if (!shuffle) {
             currentSongIndex === 0 ? setCurrentSongIndex(nowPlaying.length -1) : setCurrentSongIndex((currentSongIndex) => currentSongIndex -= 1);
+            setCurrentSong(nowPlaying[currentSongIndex]);
+            playPause(true);
         } else {
             currentSongIndex === 0 ? setCurrentSongIndex(nowPlaying.length -1) : setCurrentSongIndex(Math.floor(Math.random() * nowPlaying.length));
+            setCurrentSong(nowPlaying[currentSongIndex]);
+            playPause(true);
         }
-        setCurrentSong(nowPlaying[currentSongIndex]);
     };
 
     useEffect(() => {
@@ -43,10 +58,6 @@ const MusicPlayer = () => {
     useEffect(() => {
         musicRef.current.currentTime = seekTime;
     }, [seekTime]);
-
-    useEffect(() => {
-        isPlaying ? musicRef.current.play() : musicRef.current.pause();
-    }, [isPlaying, currentSong]);
 
     return (
         <footer className='lg:h-28 lg:px-8 xs:px-4 px-10 py-4 player flex flex-1 flex-col xs:flex-row justify-between sm:gap-4 lg:gap-8 gap-6 items-center border-t-2 border-t-[#ffffff57] relative'>
