@@ -15,6 +15,10 @@
     border: 2px solid pink;
 }
 
+.nav-item.active svg {
+    fill: #FACD66;
+}
+
 @keyframes rotate {
     0% {
         transform: rotate(0);

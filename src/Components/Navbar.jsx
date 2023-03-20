@@ -4,28 +4,29 @@ import { BiRadio } from 'react-icons/bi';
 import { SiApplemusic } from 'react-icons/si';
 import { FaVideo } from 'react-icons/fa';
 import AppContext from '../Context/GeneralContext';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import '../App.css';
 
 const Navbar = () => {
     const LinkInfo = [
-        { name: 'Home', link: '/', icon: <HiHome fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
-        { name: 'Collections', link: '/collections', icon: <SiApplemusic fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> },
-        { name: 'Radio', link: '/radio', icon: <BiRadio fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' />},
-        { name: 'Videos', link: '/videos', icon: <FaVideo fill='#EFEEE040' size="28px" className='group-focus:fill-[#FACD66] ease-in-out duration-300' /> }
-    ]
+        { name: 'Home', link: '/', icon: <HiHome fill='#EFEEE040' size="28px" /> },
+        { name: 'Collections', link: '/playlist', icon: <SiApplemusic fill='#EFEEE040' size="28px" /> },
+        { name: 'Radio', link: '/radio', icon: <BiRadio fill='#EFEEE040' size="28px" />},
+        { name: 'Videos', link: '/videos', icon: <FaVideo fill='#EFEEE040' size="28px" /> }
+    ];
 
     const { navOpen } = useContext(AppContext);
 
     const renderLinks = LinkInfo.map(({ name, link, icon }, index) => {
         return (
-            <Link key ={index} className={`nav-item flex gap-6 items-center w-full group ${name}`} to={link}>
+            <NavLink key ={index} className={({ isActive }) => `nav-item flex gap-4 items-center w-full group ${isActive ? 'text-white active font-semibold' : 'text-[#efeee040]'} ease-in-out duration-300 ${name}`} to={link}>
                 {icon}
                 <span
-                    className='text-lg text-[#EFEEE040] group-focus:text-white ease-in-out duration-300 sm:hidden'
+                    className='text-lg sm:block hidden'
                 >
                     {name}
                 </span>
-            </Link>
+            </NavLink>
         )
     })
 
@@ -33,8 +34,8 @@ const Navbar = () => {
         <nav style={{zIndex: 3}}
             className=
             {`flex flex-col gap-12 bg-[#1D2123] 
-            fixed md:static left-0 top-17 
-            px-5 h-screen md:pl-5 md:pr-2 py-16 
+            fixed md:static left-0 top-20 
+            px-5 h-screen md:pl-4 md:pr-3 py-16 
             ease-in-out duration-700 md:translate-x-0 
             ${navOpen ? "-translate-x-0" : "-translate-x-full"}`}
         >

@@ -5,61 +5,81 @@ import more from '../assets/more-vertical.svg';
 import tuneImg from '../assets/tuneImg.png';
 import { FaPlayCircle, FaHeart } from 'react-icons/fa'
 import AppContext from '../Context/GeneralContext';
+import { useNavigate } from 'react-router-dom';
 
-const SingleTune = ({ cover, title, isSingle, time, id, artist }) => {
-    const songInfo = { cover, title, time, src: id, artist };
+const SingleTune = ({ song, isSingle }) => {
+    // const songInfo = { cover, title, time, src: id, artist };
+    
+    useEffect(() => {
+        // console.log(song);
+    }, []);
 
     return (
-        <button className='w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2.5 items-center' id={id}>
-            <img src={cover || tuneImg} width='40px' className='rounded-md' alt="" />
+        <button className='w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2.5 items-center'>
+            <img src={song?.cover || tuneImg} width='40px' className='rounded-md' alt="" />
             <div>
-                <p className='text-white text-sm pb-1'>{title + " ~ " + artist || "Let me love you ~ Krisx"}</p>
+                <p className='text-white text-sm pb-1'>{song?.title + " ~ " + song?.artist || "Let me love you ~ Krisx"}</p>
                 <p className='text-xs text-white text-left'>{isSingle ? 'Single' : 'Album'}</p>
             </div>
             <div className='ml-auto text-right'>
                 <img src={more} alt="" className='block ml-auto' />
-                <p className='text-sm mt-2'>{time || "4:17"}</p>
+                <p className='text-sm mt-2'>{song?.duration || "4:17"}</p>
             </div>
         </button>
     )
 };
 
 const ChartDetails = () => {
-    const [playlistInfo, setPlaylistInfo] = useState({});
-
-    const renderSongs =
-    playlistInfo?.files?.map(song => {
-        return (
-            <SingleTune
-                key={song?.id}
-                cover={song?.cover}
-                title={song?.title}
-                isSingle={true}
-                time={song?.duration}
-                id={song?.audio}
-                artist={song?.artist}
-            />
-        )
-    })
+    const navigate = useNavigate();
+    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked } = useContext(AppContext);
 
     useEffect(() => {
-        setPlaylistInfo(JSON.parse(sessionStorage.getItem('files')));
-        renderSongs
+        if (!selectedChart) {
+            navigate('/');
+        }
     }, []);
+
+    const handlePlayAll = () => {
+        playPause(false);
+        setNowPlaying([]);
+        setNowPlaying(selectedChart?.files);
+    };
+
+    useEffect(() => {
+        setCurrentSongIndex(0);
+        playPause(true);
+    }, [nowPlaying]);
     
+
+    const likeAlbum = () => {
+        const {title, cover} = selectedChart;
+        let artist = title.split(" ");
+        artist = artist.slice(0, -1).join(" ");
+        console.log(title);
+        handleLiked(title, cover, artist, selectedChart?.files);
+    }
+
+    const renderSongs = selectedChart && selectedChart?.files?.map((song) => (
+        <SingleTune
+            key={song?.id}
+            isSingle={true}
+            song={song}
+        />)
+    )
+
     return (
         <div className='mb-28'>
             <div className='md:flex gap-7 items-end'>
-                <img src={playlistInfo?.cover || lead} className='w-full rounded-3xl md:min-w-[290px]' alt="" />
+                <img src={selectedChart?.cover || lead} className='w-full rounded-3xl md:min-w-[290px]' alt="" />
                 <div>
-                    <h2 className='text-[#A4C7C6] text-4xl font-bold mt-6'>{playlistInfo?.title || "Tomorrow’s tunes"}</h2>
-                    <p className='des text-[#EFEEE0] text-sm mt-2 mb-3'>{playlistInfo?.info || "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"}</p>
+                    <h2 className='text-[#A4C7C6] text-4xl font-bold mt-6'>{selectedChart?.title || "Tomorrow’s tunes"}</h2>
+                    <p className='des text-[#EFEEE0] text-sm mt-2 mb-3'>{selectedChart?.info || "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenatis"}</p>
                     <p className='text-[#EFEEE0] text-sm'>
-                        <span>{playlistInfo?.files?.length || "64"} songs - </span>
+                        <span>{selectedChart?.files?.length || "64"} songs - </span>
                         <span className='pl-1'>{length || " 0"} hrs+</span>
                     </p>
                     <div className='w-full gap-2 grid mt-6 md:mt-12' style={{ gridTemplateColumns: 'auto auto auto' }}>
-                        <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center'>
+                        <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center' onClick={handlePlayAll}>
                             <FaPlayCircle fill='#FACD66' size='1rem' />
                             Play all
                         </button>
@@ -67,7 +87,7 @@ const ChartDetails = () => {
                             <img src={add} alt="" />
                             Add to collection
                         </button>
-                        <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center'>
+                        <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center' onClick={likeAlbum}>
                             <FaHeart fill='#E5524A' size='1rem' />
                             Like
                         </button>

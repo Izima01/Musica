@@ -8,9 +8,9 @@ const PageLayout = () => {
     return (
         <>
             <Header />
-            <div className='md:flex'>
+            <div className='md:flex pt-2'>
                 <Navbar />
-                <div className='p-6 overflow-x-hidden'>
+                <div className='p-4 sm:p-6 overflow-x-hidden w-full'>
                     <Outlet />
                 </div>
             </div>

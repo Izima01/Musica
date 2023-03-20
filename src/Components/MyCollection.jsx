@@ -3,11 +3,15 @@ import CollectionItem from './Molecules/CollectionItem'
 
 const MyCollection = () => {
     return (
-        <div className='flex flex-col gap-5 w-full'>
-            <CollectionItem />
-            <CollectionItem />
-            <CollectionItem />
-        </div>
+        <>
+            My Collections
+            <div className='flex flex-wrap gap-6 w-full sm:flex-row'>
+                <CollectionItem />
+                <CollectionItem />
+                <CollectionItem />
+                <CollectionItem />
+            </div>
+        </>
     )
 }
 

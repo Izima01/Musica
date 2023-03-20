@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import peruL from '../assets/Peru - Fireboy Dml  Ed Sheeran (128).mp3';
 import james from '../assets/james.png';
 
@@ -11,8 +11,8 @@ export function AppProvider({ children }) {
     const [isPlaying, setisPlaying] = useState(false);
     const [nowPlaying, setNowPlaying] = useState([defaultSong]);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
-    const [currentSong, setCurrentSong] = useState(nowPlaying[currentSongIndex]);
-
+    const currentSong = nowPlaying[currentSongIndex];
+    const [selectedChart, setSelected] = useState({});
 
     const likedAlbumNames = liked.map(like => like.albumName);
 
@@ -20,11 +20,11 @@ export function AppProvider({ children }) {
         setNavOpen((navOpen) => !navOpen);
     };
 
-    const handleLiked = (albumName, albumCover, artist, time) => {
+    const handleLiked = (albumName, albumCover, artist, files) => {
         if (likedAlbumNames.includes(albumName)) {
             setLiked((liked) => liked.filter(like => like.albumName !== albumName));
         } else {
-            setLiked((liked) => [...liked, {albumName, albumCover, artist, time}]);
+            setLiked((liked) => [...liked, {albumName, albumCover, artist, files}]);
         }
     };
 
@@ -33,9 +33,13 @@ export function AppProvider({ children }) {
         ? setisPlaying(true)
         : setisPlaying(false);
     };
+    
+    const contextData = useMemo(() => ({
+        navOpen, setNavOpen, liked, setLiked, isPlaying, setisPlaying, nowPlaying, setNowPlaying, currentSongIndex, setCurrentSongIndex, currentSong, selectedChart, setSelected, likedAlbumNames, toggleHam, handleLiked, playPause
+    }), [navOpen, liked, isPlaying, nowPlaying, currentSongIndex, currentSong, selectedChart, likedAlbumNames]);
 
     return (
-        <AppContext.Provider value={{ navOpen, toggleHam, likedAlbumNames, handleLiked, playPause, currentSong, setCurrentSong, currentSongIndex, setCurrentSongIndex, nowPlaying, setNowPlaying, isPlaying, setisPlaying }}>
+        <AppContext.Provider value={contextData}>
             {children}
         </AppContext.Provider>
     )

@@ -9,8 +9,9 @@ const CollectionItem = (props) => {
         collectionArtist='John Watts',
         collectionLikes='2.3m likes'
     } = props;
+
     return (
-        <div className='rounded-2xl w-full h-60 relative overflow-y-hidden group'>
+        <div className='rounded-2xl h-60 relative overflow-y-hidden group'>
             <img src={collectionImg} className='w-full h-full' alt="" />
             <div className='absolute bottom-0 left-5 right-5 translate-y-16 group-hover:translate-y-0 ease-in-out duration-500 transition-all'>
                 <h3 className='text-2xl text-[#EFEEE0]'>{collectionName}</h3>

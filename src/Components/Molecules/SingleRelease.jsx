@@ -4,11 +4,10 @@ import AppContext from '../../Context/GeneralContext';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 
 const SingleRelease = ({ song }) => {
-    const { setCurrentSong, nowPlaying, playPause, isPlaying, currentSong, setCurrentSongIndex, setisPlaying } = useContext(AppContext);
+    const { nowPlaying, playPause, isPlaying, currentSong, setCurrentSongIndex } = useContext(AppContext);
 
     const handlePlay = () => {
         playPause(false);
-        setCurrentSong(song);
         const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
         setCurrentSongIndex(thisIndex);
         playPause(true);

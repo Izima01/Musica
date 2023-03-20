@@ -9,7 +9,6 @@ const NewReleases = () => {
     const [loading, setLoading] = useState(false);
     const { setNowPlaying, nowPlaying } = useContext(AppContext);
 
-
     const fetchTracks = () => {
         axios.get('https://musica-api.onrender.com/new')
             .then(res => {
@@ -38,7 +37,7 @@ const NewReleases = () => {
     return (
         <div className='md:mt-8 releases'>
             <h3 className='text-lg font-[#EFEEE0] mb-3'>New Releases.</h3>
-            <div className='flex flex-1 gap-8 min-w-full overflow-x-scroll charts mb-24 fancyscroll'>
+            <div className='flex flex-1 gap-8 min-w-full overflow-x-scroll charts xs:mb-24 mb-32 fancyscroll'>
                 {topReleases.length === 0 ? <SingleRelease /> : renderReleases}
             </div>
         </div>

@@ -1,8 +1,16 @@
 import React from 'react'
+import CollectionItem from './Molecules/CollectionItem'
 
 const MyLikes = () => {
     return (
-        <div>MyLikes</div>
+        <>
+            My Likes
+            <div className='flex gap-6 w-full flex-wrap sm:flex-row'>
+                <CollectionItem />
+                <CollectionItem />
+                <CollectionItem />
+            </div>
+        </>
     )
 }
 

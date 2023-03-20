@@ -5,6 +5,7 @@ import AppContext from '../../Context/GeneralContext';
 import { useNavigate } from 'react-router-dom';
 
 const SingleTopChart = (props) => {
+    const { setSelected } = useContext(AppContext);
     const navigate = useNavigate();
     const { 
         cover,
@@ -17,13 +18,11 @@ const SingleTopChart = (props) => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(e.target);
         if (e.target.classList.contains('likeBtn') || e.target.classList.contains('likeIcon')) {
-            console.log('like button');
-            handleLiked(title, cover, artist, id);
+            handleLiked(title, cover, artist, files);
         } else {
-            sessionStorage.setItem('files', JSON.stringify(files));
-            navigate('album-details');
+            setSelected(files);
+            navigate(`album-details/${id}`);
         }
     };
 
@@ -45,8 +44,7 @@ const SingleTopChart = (props) => {
                     size='24px'
                     className='cursor-pointer likeIcon'
                     strokeOpacity='0.5' fill={likedArray?.includes(title)  ? '#FACD66' : '#ffffff7f'}
-                    // onClick={() => }
-                    onClick={() => handleLiked(title, cover, artist, id)}
+                    onClick={() => handleLiked(title, cover, artist, files)}
                 />
             </button>
         </article>
