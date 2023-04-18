@@ -61,9 +61,9 @@ const MusicPlayer = () => {
     }, [seekTime]);
 
     return (
-        <footer className='lg:h-28 lg:px-8 xs:px-4 px-8 py-4 player flex flex-1 flex-col xs:flex-row justify-between sm:gap-4 lg:gap-8 gap-6 items-center border-t-2 border-t-[#ffffff57] relative'>
+        <footer className='lg:h-28 lg:px-8 xs:px-4 px-8 py-1 xs:py-4 player flex flex-1 flex-col xs:flex-row justify-between sm:gap-4 lg:gap-8 gap-2 items-center border-t-2 border-t-[#ffffff57] relative'>
             <Track currentSong={currentSong} isPlaying={isPlaying} />
-            <div className='flex flex-1 flex-col gap-4 justify-center w-full xs:w-auto'>
+            <div className='flex flex-1 flex-col gap-2 xs:gap-4 justify-center w-full xs:w-auto'>
                 <Controls
                     handleNext={handleNext}
                     handlePrev={handlePrev}

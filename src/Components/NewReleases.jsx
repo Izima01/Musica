@@ -36,8 +36,8 @@ const NewReleases = () => {
 
     return (
         <div className='md:mt-8 releases'>
-            <h3 className='text-lg font-[#EFEEE0] mb-3'>New Releases.</h3>
-            <div className='flex flex-1 gap-8 min-w-full overflow-x-scroll charts xs:mb-24 mb-32 fancyscroll'>
+            <h3 className='text-lg font-[#EFEEE0] mb-3 font-bold'>New Releases.</h3>
+            <div className='flex flex-1 gap-8 min-w-full overflow-x-scroll charts xs:mb-24 mb-36 fancyscroll'>
                 {topReleases.length === 0 ? <SingleRelease /> : renderReleases}
             </div>
         </div>

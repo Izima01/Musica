@@ -10,7 +10,6 @@ const TopCharts = () => {
     const fetchTopCharts = () => {
         axios.get("https://musica-api.onrender.com/playlist")
         .then(res => {
-            // console.log(res?.data);
             setTopCharts(res?.data);
         })
         .catch(err => console.log(err));
@@ -27,7 +26,7 @@ const TopCharts = () => {
                 cover={top?.cover}
                 artist={top?.info.substr(0, 50).concat("...")}
                 title={top?.title}
-                id={top?.audio}
+                id={top?.id}
                 handleLiked={handleLiked}
                 likedArray={likedAlbumNames}
                 files={top}
@@ -39,7 +38,7 @@ const TopCharts = () => {
         <div className='mt-12 mb-6 md:my-0'>
             <h3 className='text-lg font-[#EFEEE0] mb-4'>Top Charts</h3>
             <div
-            className='flex flex-1 gap-4 md:flex-col 
+            className='flex flex-1 gap-2 sm:gap-4 md:flex-col 
             min-w-full md:h-[450px] overflow-x-scroll md:overflow-x-hidden 
             charts mb-2 charts-container fancyscroll'>
                 {topCharts.length === 0 ? <SingleTopChart /> : renderTopCharts}

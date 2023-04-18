@@ -22,7 +22,7 @@ const Navbar = () => {
             <NavLink key ={index} className={({ isActive }) => `nav-item flex gap-4 items-center w-full group ${isActive ? 'text-white active font-semibold' : 'text-[#efeee040]'} ease-in-out duration-300 ${name}`} to={link}>
                 {icon}
                 <span
-                    className='text-lg sm:block hidden'
+                    className='text-lg md:hidden'
                 >
                     {name}
                 </span>

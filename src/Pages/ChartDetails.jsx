@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import lead from '../assets/Lead-image.png';
 import add from '../assets/music-square-add.svg';
 import more from '../assets/more-vertical.svg';
@@ -31,7 +31,7 @@ const SingleTune = ({ song, isSingle }) => {
 
 const ChartDetails = () => {
     const navigate = useNavigate();
-    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked } = useContext(AppContext);
+    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked, addToCollection, likedAlbumNames, collectionNames, collection } = useContext(AppContext);
 
     useEffect(() => {
         if (!selectedChart) {
@@ -42,12 +42,14 @@ const ChartDetails = () => {
     const handlePlayAll = () => {
         playPause(false);
         setNowPlaying([]);
-        setNowPlaying(selectedChart?.files);
     };
 
     useEffect(() => {
         setCurrentSongIndex(0);
         playPause(true);
+        if (nowPlaying.length===0) {
+            setNowPlaying(selectedChart?.files);
+        };
     }, [nowPlaying]);
     
 
@@ -55,9 +57,20 @@ const ChartDetails = () => {
         const {title, cover} = selectedChart;
         let artist = title.split(" ");
         artist = artist.slice(0, -1).join(" ");
-        console.log(title);
+        // console.log(title);
         handleLiked(title, cover, artist, selectedChart?.files);
-    }
+    };
+
+    const handleAdd = () => {
+        const {title, cover} = selectedChart;
+        let artist = title?.split(" ");
+        artist = artist?.slice(0, -1).join(" ");
+        addToCollection(title, cover, artist, selectedChart?.files);
+    };
+
+    useEffect(() => {
+        console.log(collectionNames);
+    }, [collectionNames]);
 
     const renderSongs = selectedChart && selectedChart?.files?.map((song) => (
         <SingleTune
@@ -83,19 +96,18 @@ const ChartDetails = () => {
                             <FaPlayCircle fill='#FACD66' size='1rem' />
                             Play all
                         </button>
-                        <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center'>
+                        <button className='rounded-[2rem] py-3 gap-2 flex justify-center items-center bg-[#ffffff11]' onClick={handleAdd}>
                             <img src={add} alt="" />
-                            Add to collection
+                            <p className={collectionNames?.includes(selectedChart?.title) ? 'text-[#FACD66]' : ''}>Add to collection</p>
                         </button>
                         <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center' onClick={likeAlbum}>
-                            <FaHeart fill='#E5524A' size='1rem' />
-                            Like
+                            <FaHeart fill={likedAlbumNames?.includes(selectedChart?.title) ? '#E5524A' : ''} size='1rem' />
+                            <p className={likedAlbumNames?.includes(selectedChart?.title) ? 'text-[#FACD66]' : ''}>Like</p>
                         </button>
                     </div>
                 </div>
             </div>
             <div className='tune w-full mt-6 flex flex-col gap-3.5'>
-                {/* <SingleTune /> */}
                 {renderSongs}
             </div>
         </div>

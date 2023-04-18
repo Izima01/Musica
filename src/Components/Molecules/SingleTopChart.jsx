@@ -27,7 +27,7 @@ const SingleTopChart = (props) => {
     };
 
     return (
-        <article className='min-w-[19rem] p-4 rounded-3xl relative bg-[#1A1E1F] md:flex cursor-pointer items-center' id={id} onClick={(e) => handleClick(e)}>
+        <article className='sm:min-w-[19rem] min-w-[15rem] p-4 rounded-3xl relative bg-[#1A1E1F] md:flex cursor-pointer items-center' id={id} onClick={(e) => handleClick(e)}>
             <div className='w-[6.5rem] md:w-16 h-20 md:h-16 rounded-[10px] md:mr-4'>
                 <img src={cover || image} className='w-full rounded-[10px] h-full' alt="" />
             </div>
