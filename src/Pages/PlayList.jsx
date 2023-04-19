@@ -27,7 +27,7 @@ const Collections = () => {
                     My Likes
                 </NavLink>
             </div>
-            <div className='w-full mb-20'>
+            <div className='w-full mb-36'>
                 <Outlet />
             </div>
         </section>
