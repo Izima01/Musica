@@ -5,7 +5,6 @@ import Track from "./Track";
 import Controls from './Controls';
 import VolumeBar from './VolumeBar';
 import Seekbar from './Seekbar';
-import { defaultSong } from '../../Context/GeneralContext';
 
 const MusicPlayer = () => {
     const [seekTime, setSeekTime] = useState(0);

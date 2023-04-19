@@ -1,7 +1,6 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import peruL from '../assets/Peru - Fireboy Dml  Ed Sheeran (128).mp3';
 import james from '../assets/james.png';
-import { useLocation } from "react-router-dom";
 
 export const defaultSong = {audio: peruL, title: 'Peru', artist: 'Fireboy Dml ft Ed Sheeran', cover: james, duration: "3:07", id:"default" };
 const AppContext = createContext();
@@ -18,12 +17,7 @@ export function AppProvider({ children }) {
 
     const likedAlbumNames = liked.map(like => like.albumName);
     const collectionNames = collection.map(collect => collect.albumName);
-    const loc = useLocation();
     const [page, setPage] = useState("");
-
-    useEffect(() => {
-        setPage(loc.pathname.substring(10));
-    }, [loc]);
 
     const toggleHam = () => {
         setNavOpen((navOpen) => !navOpen);
@@ -52,8 +46,8 @@ export function AppProvider({ children }) {
     };
     
     const contextData = useMemo(() => ({
-        navOpen, setNavOpen, liked, page, collection, isPlaying, setisPlaying, nowPlaying, setNowPlaying, currentSongIndex, setCurrentSongIndex, currentSong, selectedChart, setSelected, likedAlbumNames, collectionNames, toggleHam, handleLiked, addToCollection, playPause
-    }), [navOpen, liked, collection, isPlaying, nowPlaying, currentSongIndex, currentSong, selectedChart, likedAlbumNames, collectionNames]);
+        navOpen, setNavOpen, liked, page, setPage, collection, isPlaying, setNavOpen, setisPlaying, nowPlaying, setNowPlaying, currentSongIndex, setCurrentSongIndex, currentSong, selectedChart, setSelected, likedAlbumNames, collectionNames, toggleHam, handleLiked, addToCollection, playPause
+    }), [navOpen, liked, collection, isPlaying, nowPlaying, currentSongIndex, currentSong, selectedChart, page]);
 
     return (
         <AppContext.Provider value={contextData}>

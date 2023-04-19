@@ -46,7 +46,7 @@ const ChartDetails = () => {
 
     useEffect(() => {
         setCurrentSongIndex(0);
-        playPause(true);
+        // playPause(true);
         if (nowPlaying.length===0) {
             setNowPlaying(selectedChart?.files);
         };

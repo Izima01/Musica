@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const SingleTopChart = (props) => {
     const { setSelected } = useContext(AppContext);
     const navigate = useNavigate();
+
     const { 
         cover,
         artist='',

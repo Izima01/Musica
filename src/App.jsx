@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import PageLayout from './Pages/PageLayout'
 import Home from './Pages/Home'
@@ -10,7 +11,6 @@ import ChartDetails from './Pages/ChartDetails';
 import MyCollection from './Components/MyCollection';
 import MyLikes from './Components/MyLikes';
 
-
 function App() {
   return (
     <div className="App fancyscroll">
@@ -19,7 +19,7 @@ function App() {
           <Route path='/' element={<PageLayout />}>
             <Route index element={<Home />} />
             <Route path='playlist' element={<PlayList />}>
-              <Route index element={<MyCollection />} />
+              {/* <Route index element={<MyCollection />} /> */}
               <Route path='collections' element={<MyCollection />} />
               <Route path='likes' element={<MyLikes />} />
             </Route>

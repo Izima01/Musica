@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { HiHome } from 'react-icons/hi';
 import { BiRadio } from 'react-icons/bi';
 import { SiApplemusic } from 'react-icons/si';
 import { FaVideo } from 'react-icons/fa';
 import AppContext from '../Context/GeneralContext';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const Navbar = () => {
@@ -15,18 +15,25 @@ const Navbar = () => {
         { name: 'Videos', link: '/videos', icon: <FaVideo fill='#EFEEE040' size="28px" /> }
     ];
 
-    const { navOpen } = useContext(AppContext);
+    const { navOpen, setNavOpen, page, setPage } = useContext(AppContext);
+    const navigate = useNavigate();
+
+    const openLink = (link) => {
+        setPage(link);
+        navigate(link);
+        setNavOpen(false);
+    };
 
     const renderLinks = LinkInfo.map(({ name, link, icon }, index) => {
         return (
-            <NavLink key ={index} className={({ isActive }) => `nav-item flex gap-4 items-center w-full group ${isActive ? 'text-white active font-semibold' : 'text-[#efeee040]'} ease-in-out duration-300 ${name}`} to={link}>
+            <button key ={index} className={`nav-item flex gap-4 items-center w-full group ${page === link ? 'text-white active font-semibold' : 'text-[#efeee040]'} ease-in-out duration-300 ${name}`} onClick={() => openLink(link)}>
                 {icon}
                 <span
                     className='text-lg md:hidden'
                 >
                     {name}
                 </span>
-            </NavLink>
+            </button>
         )
     })
 

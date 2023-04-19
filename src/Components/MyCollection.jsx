@@ -17,7 +17,6 @@ const MyCollection = () => {
                     files={files}
                 />
             )}
-            {/* <CollectionItem /> */}
         </div>
     )
 }

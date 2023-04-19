@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import release1 from '../../assets/release1.png';
 import AppContext from '../../Context/GeneralContext';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
