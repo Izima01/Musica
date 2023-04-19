@@ -81,7 +81,7 @@ const ChartDetails = () => {
     )
 
     return (
-        <div className='mb-28'>
+        <div className='mb-32'>
             <div className='md:flex gap-7 items-end'>
                 <img src={selectedChart?.cover || lead} className='w-full rounded-3xl md:min-w-[290px]' alt="" />
                 <div>
