@@ -8,14 +8,10 @@ import AppContext from '../Context/GeneralContext';
 import { useNavigate } from 'react-router-dom';
 
 const SingleTune = ({ song, isSingle }) => {
-    // const songInfo = { cover, title, time, src: id, artist };
-    
-    useEffect(() => {
-        // console.log(song);
-    }, []);
+    const { currentSong } = useContext(AppContext);
 
     return (
-        <button className='w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2.5 items-center'>
+        <button className={`w-full bg-[#33373b5e] rounded-xl flex gap-4 items-center ${song?.id === currentSong?.id ? "border-[#FACD66] border-2 p-2" : 'p-2.5'}`}>
             <img src={song?.cover || tuneImg} width='40px' className='rounded-md' alt="" />
             <div>
                 <p className='text-white text-sm pb-1'>{song?.title + " ~ " + song?.artist || "Let me love you ~ Krisx"}</p>
@@ -31,7 +27,7 @@ const SingleTune = ({ song, isSingle }) => {
 
 const ChartDetails = () => {
     const navigate = useNavigate();
-    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked, addToCollection, likedAlbumNames, collectionNames, collection } = useContext(AppContext);
+    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked, likedAlbumNames } = useContext(AppContext);
 
     useEffect(() => {
         if (!selectedChart) {
@@ -50,8 +46,8 @@ const ChartDetails = () => {
         if (nowPlaying.length===0) {
             setNowPlaying(selectedChart?.files);
         };
+        playPause(true);
     }, [nowPlaying]);
-    
 
     const likeAlbum = () => {
         const {title, cover} = selectedChart;
@@ -60,17 +56,6 @@ const ChartDetails = () => {
         // console.log(title);
         handleLiked(title, cover, artist, selectedChart?.files);
     };
-
-    const handleAdd = () => {
-        const {title, cover} = selectedChart;
-        let artist = title?.split(" ");
-        artist = artist?.slice(0, -1).join(" ");
-        addToCollection(title, cover, artist, selectedChart?.files);
-    };
-
-    useEffect(() => {
-        console.log(collectionNames);
-    }, [collectionNames]);
 
     const renderSongs = selectedChart && selectedChart?.files?.map((song) => (
         <SingleTune
@@ -96,9 +81,9 @@ const ChartDetails = () => {
                             <FaPlayCircle fill='#FACD66' size='1rem' />
                             Play all
                         </button>
-                        <button className='rounded-[2rem] py-3 gap-2 flex justify-center items-center bg-[#ffffff11]' onClick={handleAdd}>
+                        <button className='rounded-[2rem] py-3 gap-2 flex justify-center items-center bg-[#ffffff11]'>
                             <img src={add} alt="" />
-                            <p className={collectionNames?.includes(selectedChart?.title) ? 'text-[#FACD66]' : ''}>Add to collection</p>
+                            <p>Add to collection</p>
                         </button>
                         <button className='bg-[#ffffff11] rounded-[2rem] py-3 gap-2 flex justify-center items-center' onClick={likeAlbum}>
                             <FaHeart fill={likedAlbumNames?.includes(selectedChart?.title) ? '#E5524A' : ''} size='1rem' />

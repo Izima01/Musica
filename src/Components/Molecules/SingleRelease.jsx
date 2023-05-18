@@ -3,25 +3,26 @@ import release1 from '../../assets/release1.png';
 import AppContext from '../../Context/GeneralContext';
 import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 
-const SingleRelease = ({ song }) => {
+const SingleRelease = ({ song, handlePlay }) => {
     const { nowPlaying, playPause, isPlaying, currentSong, setCurrentSongIndex } = useContext(AppContext);
 
-    const handlePlay = () => {
-        playPause(false);
-        const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
-        setCurrentSongIndex(thisIndex);
-        playPause(true);
-    };
+    // const handlePlay = () => {
+    //     playPause(false);
+    //     const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
+    //     setCurrentSongIndex(thisIndex);
+    //     topReleases.map((release) => setNowPlaying(nowplaying  => [...nowplaying, release]));
+    //     playPause(true);
+    // };
 
     return (
         <div className='bg-[#1A1E1F] group' data-src={song?.audio}>
             <div className='h-[9.5rem] w-[9.5rem] rounded-3xl relative'>
                 <img src={song?.cover || release1} className='w-full h-full rounded-3xl' alt="" />
-                    <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-40 group-hover:flex ${song?.id === currentSong?.id ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
+                <div className={`absolute inset-0 justify-center items-center bg-black bg-opacity-40 transition duration-300 group-hover:flex ${song?.id === currentSong?.id ? 'flex bg-black bg-opacity-70' : 'hidden'}`}>
                     {
                         (isPlaying && song?.id === currentSong?.id)
                         ? <FaPauseCircle fill='#FACD66' onClick={() => playPause(false)} size={32} />
-                        : <FaPlayCircle fill='#FACD66' onClick={() => handlePlay()} size={32} />
+                        : <FaPlayCircle fill='#FACD66' onClick={handlePlay} size={32} />
                     }
                 </div>
             </div>

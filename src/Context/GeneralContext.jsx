@@ -8,7 +8,6 @@ const AppContext = createContext();
 export function AppProvider({ children }) {
     const [navOpen, setNavOpen] = useState(false);
     const [liked, setLiked] = useState([]);
-    const [collection, setCollection] = useState([]);
     const [isPlaying, setisPlaying] = useState(false);
     const [nowPlaying, setNowPlaying] = useState([defaultSong]);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -16,8 +15,7 @@ export function AppProvider({ children }) {
     const [selectedChart, setSelected] = useState({});
 
     const likedAlbumNames = liked.map(like => like.albumName);
-    const collectionNames = collection.map(collect => collect.albumName);
-    const [page, setPage] = useState("");
+    const [page, setPage] = useState("/");
 
     const toggleHam = () => {
         setNavOpen((navOpen) => !navOpen);
@@ -31,14 +29,6 @@ export function AppProvider({ children }) {
         }
     };
 
-    const addToCollection = (albumName, albumCover, artist, files) => {
-        if (collectionNames.includes(albumName)) {
-            setCollection((album) => album.filter(alb => alb.albumName !== albumName));
-        } else {
-            setCollection((album) => [...album, {albumName, albumCover, artist, files}]);
-        }
-    };
-
     const playPause = (value) => {
         value
         ? setisPlaying(true)
@@ -46,8 +36,8 @@ export function AppProvider({ children }) {
     };
     
     const contextData = useMemo(() => ({
-        navOpen, setNavOpen, liked, page, setPage, collection, isPlaying, setNavOpen, setisPlaying, nowPlaying, setNowPlaying, currentSongIndex, setCurrentSongIndex, currentSong, selectedChart, setSelected, likedAlbumNames, collectionNames, toggleHam, handleLiked, addToCollection, playPause
-    }), [navOpen, liked, collection, isPlaying, nowPlaying, currentSongIndex, currentSong, selectedChart, page]);
+        navOpen, setNavOpen, liked, page, setPage, isPlaying, setisPlaying, nowPlaying, setNowPlaying, currentSongIndex, setCurrentSongIndex, currentSong, selectedChart, setSelected, likedAlbumNames, toggleHam, handleLiked, playPause
+    }), [navOpen, liked, isPlaying, nowPlaying, currentSongIndex, currentSong, selectedChart, page]);
 
     return (
         <AppContext.Provider value={contextData}>

@@ -19,8 +19,8 @@ function App() {
           <Route path='/' element={<PageLayout />}>
             <Route index element={<Home />} />
             <Route path='playlist' element={<PlayList />}>
-              {/* <Route index element={<MyCollection />} /> */}
-              <Route path='collections' element={<MyCollection />} />
+              <Route index element={<MyCollection />} />
+              {/* <Route path='collections' element={<MyCollection />} /> */}
               <Route path='likes' element={<MyLikes />} />
             </Route>
             <Route path='radio' element={<Radio />} />

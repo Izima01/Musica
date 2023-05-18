@@ -4,12 +4,13 @@ import AppContext from '../Context/GeneralContext';
 import axios from "axios";
 
 const TopCharts = () => {
-    const { likedAlbumNames, handleLiked } = useContext(AppContext);
+    const { likedAlbumNames, handleLiked, playPause, setCurrentSongIndex, nowPlaying, setNowPlaying } = useContext(AppContext);
     const [topCharts, setTopCharts] = useState([]);
 
     const fetchTopCharts = () => {
-        axios.get("https://musica-api.onrender.com/playlist")
+        axios.get("https://musica-api.onrender.com/popular")
         .then(res => {
+            // console.log(res);
             setTopCharts(res?.data);
         })
         .catch(err => console.log(err));
@@ -19,17 +20,24 @@ const TopCharts = () => {
         fetchTopCharts();
     }, []);
 
+    const handlePlay = (song) => {
+        playPause(false);
+        setNowPlaying([...topCharts]);
+        const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
+        setCurrentSongIndex(thisIndex);
+        // topReleases.map((release) => setNowPlaying(nowplaying  => [...nowplaying, release]));
+        playPause(true);
+    };
+
     const renderTopCharts = topCharts && topCharts?.map((top) => {
         return (
             <SingleTopChart
                 key={top?.id}
-                cover={top?.cover}
-                artist={top?.info.substr(0, 50).concat("...")}
-                title={top?.title}
-                id={top?.id}
+                song={top}
+                // id={top?.id}
                 handleLiked={handleLiked}
                 likedArray={likedAlbumNames}
-                files={top}
+                handlePlay={() => handlePlay(top)}
             />
         )
     });
