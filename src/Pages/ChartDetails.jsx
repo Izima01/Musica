@@ -1,17 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import lead from '../assets/Lead-image.png';
 import add from '../assets/music-square-add.svg';
 import more from '../assets/more-vertical.svg';
 import tuneImg from '../assets/tuneImg.png';
 import { FaPlayCircle, FaHeart } from 'react-icons/fa'
 import AppContext from '../Context/GeneralContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
-const SingleTune = ({ song, isSingle }) => {
-    const { currentSong } = useContext(AppContext);
-
+const SingleTune = ({ song, isSingle, playList, handlePlay, currentSong }) => {
     return (
-        <button className={`w-full bg-[#33373b5e] rounded-xl flex gap-4 items-center ${song?.id === currentSong?.id ? "border-[#FACD66] border-2 p-2" : 'p-2.5'}`}>
+        <button className={`w-full bg-[#33373b5e] rounded-xl flex gap-4 p-2 items-center ${currentSong?.id === song?.id && "border-[#FACD66] border-2"}`} onClick={() => handlePlay()}>
             <img src={song?.cover || tuneImg} width='40px' className='rounded-md' alt="" />
             <div>
                 <p className='text-white text-sm pb-1'>{song?.title + " ~ " + song?.artist || "Let me love you ~ Krisx"}</p>
@@ -26,34 +25,44 @@ const SingleTune = ({ song, isSingle }) => {
 };
 
 const ChartDetails = () => {
-    const navigate = useNavigate();
-    const { selectedChart, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked, likedAlbumNames } = useContext(AppContext);
+    const { id } = useParams();
+    const { selectedChart, setSelected, setNowPlaying, setCurrentSongIndex, nowPlaying, playPause, handleLiked, likedAlbumNames, currentSong } = useContext(AppContext);
+    const [myCollection, setMyCollection] = useState([]);
 
-    useEffect(() => {
-        if (!selectedChart) {
-            navigate('/');
-        }
-    }, []);
-
-    const handlePlayAll = () => {
-        playPause(false);
-        setNowPlaying([]);
+    const fetchMyCollection = () => {
+        axios.get("https://musica-api.onrender.com/playlist")
+        .then(res => {
+            setMyCollection(res?.data);
+        })
+        .catch(err => console.log(err));
     };
 
     useEffect(() => {
+        fetchMyCollection();
+    }, []);
+
+    useEffect(() => {
+        setSelected(myCollection.find(el => el.id === id));
+    }, [myCollection]);
+
+    const handlePlayAll = () => {
+        playPause(false);
+        setNowPlaying(selectedChart?.files);
         setCurrentSongIndex(0);
-        // playPause(true);
-        if (nowPlaying.length===0) {
-            setNowPlaying(selectedChart?.files);
-        };
         playPause(true);
-    }, [nowPlaying]);
+    };
+
+    const handlePlay = (song) => {
+        playPause(false);
+        const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
+        setCurrentSongIndex(thisIndex);
+        playPause(true);
+    };
 
     const likeAlbum = () => {
         const {title, cover} = selectedChart;
         let artist = title.split(" ");
         artist = artist.slice(0, -1).join(" ");
-        // console.log(title);
         handleLiked(title, cover, artist, selectedChart?.files);
     };
 
@@ -62,6 +71,9 @@ const ChartDetails = () => {
             key={song?.id}
             isSingle={true}
             song={song}
+            playList={selectedChart?.files}
+            handlePlay={() => handlePlay(song)}
+            currentSong={currentSong}
         />)
     )
 

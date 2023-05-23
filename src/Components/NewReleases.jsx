@@ -7,7 +7,7 @@ import AppContext from '../Context/GeneralContext';
 const NewReleases = () => {
     const [topReleases, setTopReleases] = useState([]);
     const [loading, setLoading] = useState(false);
-    const { setNowPlaying, nowPlaying, setCurrentSongIndex, playPause } = useContext(AppContext);
+    const { setNowPlaying, nowPlaying, setCurrentSongIndex, playPause, currentSongIndex, currentSong, setisPlaying } = useContext(AppContext);
 
     const fetchTracks = () => {
         axios.get('https://musica-api.onrender.com/new')
@@ -25,10 +25,11 @@ const NewReleases = () => {
 
     const handlePlay = (song) => {
         playPause(false);
-        const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
-        setCurrentSongIndex(thisIndex);
-        topReleases.map((release) => setNowPlaying(nowplaying  => [...nowplaying, release]));
-        playPause(true);
+        setNowPlaying(topReleases, setCurrentSongIndex(nowPlaying.findIndex(asong => song?.id == asong?.id)));
+        console.log({currentSongIndex});
+        // playPause(true);
+        setisPlaying(true);
+        // topReleases.map((release) => setNowPlaying(nowplaying  => [...nowplaying, release]));
     };
 
     const renderReleases = topReleases && topReleases?.map((top) => <SingleRelease key={top?.id} song={top} handlePlay={() => handlePlay(top)} />)

@@ -32,7 +32,6 @@ const CollectionItem = (props) => {
     }, [nowPlaying]);
 
     const openDetails = (e) => {
-        console.log(e);
         if (e.target.classList.contains("play-all") || e.target.classList.length==0) {
             console.log("all");
             handlePlayAll();
@@ -44,12 +43,12 @@ const CollectionItem = (props) => {
             id, files, info
         }
         setSelected(obj);
-        navigate(`/album-details/${collectionName}`);
+        navigate(`/album-details/${id}`);
         // setSelected({cover});
     }
 
     return (
-        <button onClick={openDetails} className='rounded-2xl h-60 relative overflow-y-hidden group min-w-[15rem]'>
+        <button onClick={openDetails} className='rounded-2xl h-60 relative overflow-y-hidden group min-w-[14rem]'>
             <img src={collectionImg} className='w-full h-full' alt="" />
             <div className='absolute bottom-1 left-5 right-5 translate-y-20 group-hover:translate-y-0 ease-in-out duration-500 transition-all text-left'>
                 <h3 className='text-2xl text-black font-bold mb-1'>{collectionName}</h3>

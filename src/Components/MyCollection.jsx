@@ -9,7 +9,6 @@ const MyCollection = () => {
     const fetchMyCollection = () => {
         axios.get("https://musica-api.onrender.com/playlist")
         .then(res => {
-            console.log(res?.data);
             setMyCollection(res?.data);
         })
         .catch(err => console.log(err));

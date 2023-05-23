@@ -6,14 +6,6 @@ import { FaPlayCircle, FaPauseCircle } from 'react-icons/fa';
 const SingleRelease = ({ song, handlePlay }) => {
     const { nowPlaying, playPause, isPlaying, currentSong, setCurrentSongIndex } = useContext(AppContext);
 
-    // const handlePlay = () => {
-    //     playPause(false);
-    //     const thisIndex = nowPlaying.findIndex((aSong) => song?.id === aSong?.id);
-    //     setCurrentSongIndex(thisIndex);
-    //     topReleases.map((release) => setNowPlaying(nowplaying  => [...nowplaying, release]));
-    //     playPause(true);
-    // };
-
     return (
         <div className='bg-[#1A1E1F] group' data-src={song?.audio}>
             <div className='h-[9.5rem] w-[9.5rem] rounded-3xl relative'>

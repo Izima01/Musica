@@ -1,15 +1,15 @@
 import { createContext, useMemo, useState } from "react";
-import peruL from '../assets/Peru - Fireboy Dml  Ed Sheeran (128).mp3';
-import james from '../assets/james.png';
+// import peruL from '../assets/Peru - Fireboy Dml  Ed Sheeran (128).mp3';
+// import james from '../assets/james.png';
 
-export const defaultSong = {audio: peruL, title: 'Peru', artist: 'Fireboy Dml ft Ed Sheeran', cover: james, duration: "3:07", id:"default" };
+// export const defaultSong = {audio: peruL, title: 'Peru', artist: 'Fireboy Dml ft Ed Sheeran', cover: james, duration: "3:07", id:"default" };
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
     const [navOpen, setNavOpen] = useState(false);
     const [liked, setLiked] = useState([]);
     const [isPlaying, setisPlaying] = useState(false);
-    const [nowPlaying, setNowPlaying] = useState([defaultSong]);
+    const [nowPlaying, setNowPlaying] = useState([]);
     const [currentSongIndex, setCurrentSongIndex] = useState(0);
     const currentSong = nowPlaying[currentSongIndex];
     const [selectedChart, setSelected] = useState({});
